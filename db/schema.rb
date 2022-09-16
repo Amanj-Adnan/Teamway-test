@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_15_210808) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_16_141837) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "shift_types", force: :cascade do |t|
+    t.string "type_name"
+    t.string "form_to"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shifts", force: :cascade do |t|
+    t.bigint "worker_id"
+    t.date "working_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "shift_type_id"
+    t.index ["shift_type_id"], name: "index_shifts_on_shift_type_id"
+    t.index ["worker_id"], name: "index_shifts_on_worker_id"
+  end
 
   create_table "workers", force: :cascade do |t|
     t.string "name"
@@ -21,4 +38,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_210808) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "shifts", "shift_types"
+  add_foreign_key "shifts", "workers"
 end

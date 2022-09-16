@@ -50,3 +50,4 @@ group :development do
   # gem "spring"
 end
 
+gem 'jsonapi-rails', '~> 0.4.1'
