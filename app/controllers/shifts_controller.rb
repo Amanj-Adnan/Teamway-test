@@ -64,7 +64,7 @@ class ShiftsController < ApplicationController
 
   def date_check
     @worker = Worker.find(params[:worker_id])
-    puts(@worker.shifts)
+    
      @worker.shifts.each do |shift|
        if shift.working_date.to_date == params[:date].to_date
          render json: {msg: "A worker can only have one shift for each day"}
